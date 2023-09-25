@@ -140,7 +140,7 @@ public class EventController {
     }
 
     @PostMapping("/events/upload-to-s3")
-    public BaseResponse<?> uploadToS3(Pageable pageable) {
+    public BaseResponse<?> uploadToS3() {
         try {
             excelExport.generateExcelFile();
             byte[] excelBytes = convertListToExcel(eventRepository.findAll());
