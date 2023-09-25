@@ -1,0 +1,69 @@
+1. thêm các trường sau vào event: 
+ location: địa điểm diễn ra event (not null)
+ slug (tự gen ra theo name. VD: event 1 = event-1 hoặc Ten chien dich = ten-chien-dich Replace dấu cách thành dấu - và chuyển viết Hoa thành viết thường)
+ imgUrl: link ảnh
+ isActive: đánh dấu event có hiệu lực hay ko
+2. Sử dụng @valid để đảm bảo: 
+ name: ko được trống và phải unique duy nhất
+3. Thêm 1 bảng event_news. Lưu các tin tức liên quan đến sự kiện. quan hệ n-1 với events.
+ title
+ desc
+ imgUrl
+ rank: thứ tự hiển thị
+ Type: sử dụng kiểu Enum để lưu
+4. Thêm 1 bảng speakers. Lưu thông tin các diễn giả sẽ chém gió ở hội thảo
+    String name;
+
+    String title;
+
+    String imgUrl;
+
+    String description;
+
+    String phoneNumber;
+
+    String contact;
+
+    @ManyToOne
+    @JsonBackReference
+    Event event;
+
+    String company;
+
+    String major;
+
+    List<String> projects; danh sách các dự án đã phát triển
+
+
+    String level; : giáo sư, tiến sĩ.... cũng dùng Enum
+
+    5. Ticket thêm trường:
+    @Column(name = "ticket_type")
+    @Enumerated(EnumType.STRING)
+    TicketType ticketType; : TYPE_A, TYPE_B, TYPE_C
+    BigDecimal price; SQL: price decimal(12,0) DEFAULT NULL,
+    List<String> meetings; danh sách meetings của vé
+    ticket quan hệ với event: 1 event có nhiều ticket
+6. Để làm menu cho front end, cần trả mini api get danh sách event gồm : id, name, slug
+7. Để hiển thị combobox chọn danh sách vé, cần mini api get danh sách ticket gồm: id, name
+số 6,7 yêu cầu tạo 1 package riêng để chuyên làm các api mini. trong ảnh "mẫu gửi kèm"
+
+8. tạo bảng coupons với thông tin như sau, viết crud api, khi tạo mới thì currentQuantity = quantity:
+ public class Coupon extends JpaIDEntity {
+    String name;
+    String code;
+    String description;
+    @Column(name = "expire_time")
+    Instant expireTime;
+    Integer quantity;
+    @Column(name = "ticket_id")
+    Long ticketId;
+    @Column(name = "event_id")
+    Long eventId;
+    Double discount;
+    @Column(name = "discount_percentage")
+    Double discountPercentage;
+    @Column(name = "max_discount")
+    Double maxDiscount;
+    @Column(name = "current_quantity")
+    Integer currentQuantity;
