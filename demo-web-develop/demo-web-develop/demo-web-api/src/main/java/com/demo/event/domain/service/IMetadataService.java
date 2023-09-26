@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IMetadataService {
-    public void upload(MultipartFile file) throws IOException;
+    void upload(MultipartFile file) throws IOException;
 
-    public S3Object download(Long id);
+    S3Object download(Long id);
 
-    public List<FileMeta> list();
+    List<FileMeta> list();
 
     String uploadAndGenerateDownloadLink(byte[] excelBytes);
 

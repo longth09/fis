@@ -1,9 +1,11 @@
 package com.demo.speacks.domain.service;
 
+import com.demo.speacks.api.dto.SpeackerEventDto;
 import com.demo.speacks.domain.model.Speakers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Map;
 import java.util.Optional;
 
 public interface ISpeackersService {
@@ -19,5 +21,7 @@ public interface ISpeackersService {
     Boolean removeAll();
 
     Optional<Speakers> findById(Long id);
+
+    Map<String, Object> getSpeackerEvents(Pageable pageable);
 
 }

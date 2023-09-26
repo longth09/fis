@@ -164,7 +164,7 @@ public class EventController {
 
     @GetMapping("/event/del-file")
     public BaseResponse<?> delFile(@RequestParam("filename") String fileName) {
-        if(metadataService.deleteFile(fileName)) {
+        if (metadataService.deleteFile(fileName)) {
             return BaseResponse.ofSucceeded("Delete success file: " + fileName);
         }
         return BaseResponse.ofFailed(DEFAULT_NOT_FOUND);
@@ -174,5 +174,7 @@ public class EventController {
     public BaseResponse<?> getAllBucket() {
         return BaseResponse.ofSucceeded(metadataService.listFiles());
     }
+
+
 
 }

@@ -76,4 +76,9 @@ public class SpeackersController {
         }
     }
 
+    @GetMapping("speackers-events")
+    public BaseResponse<?> getSpeackersEvents(Pageable pageable) {
+        return BaseResponse.ofSucceeded(speackersService.getSpeackerEvents(pageable));
+    }
+
 }
